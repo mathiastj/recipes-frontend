@@ -12,32 +12,32 @@ import {
   TextField,
 } from 'react-admin'
 
-export const CategoryCreate = (props) => (
-  <Create {...props}>
+export const CategoryCreate = () => (
+  <Create>
     <SimpleForm>
       <TextInput source="name" />
     </SimpleForm>
   </Create>
 )
 
-export const CategoryList = (props) => (
-  <List {...props}>
+export const CategoryList = () => (
+  <List>
     <Datagrid rowClick="edit">
       <TextField source="name" />
     </Datagrid>
   </List>
 )
 
-export const CategoryEdit = (props) => (
-  <Edit {...props}>
+export const CategoryEdit = () => (
+  <Edit>
     <SimpleForm>
       <TextInput source="name" />
     </SimpleForm>
   </Edit>
 )
 
-export const CategoryShow = (props) => (
-  <Show {...props}>
+export const CategoryShow = () => (
+  <Show>
     <SimpleShowLayout>
       <TextField source="name" />
       <DateField source="created_at" />

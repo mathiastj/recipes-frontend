@@ -1,37 +1,43 @@
 /* eslint-disable camelcase */
 import React from 'react'
-import { makeStyles } from '@material-ui/core/styles'
+import { styled } from '@mui/material/styles'
 import { useTranslate } from 'react-admin'
 import Stars from '../stars'
 
-const useStyles = makeStyles({
-  'text-left': {
-    float: 'left',
-    'text-align': 'left',
-    width: '33%',
-  },
-  'text-center': {
-    float: 'left',
-    'text-align': 'center',
-    width: '34%',
-  },
-  'text-right': {
-    float: 'left',
-    'text-align': 'right',
-    width: '33%',
-  },
-  root: {
+const PREFIX = 'RecipeShowHeader'
+const classes = {
+  root: `${PREFIX}-root`,
+  content: `${PREFIX}-content`,
+}
+const Root = styled('div')(({}) => ({
+  [`&.${classes.root}`]: {
     paddingBlock: '3rem',
   },
-})
+  [`& .${classes.content}`]: {
+    'text-left': {
+      float: 'left',
+      'text-align': 'left',
+      width: '33%',
+    },
+    'text-center': {
+      float: 'left',
+      'text-align': 'center',
+      width: '34%',
+    },
+    'text-right': {
+      float: 'left',
+      'text-align': 'right',
+      width: '33%',
+    },
+  },
+}))
 
 const RecipeShowHeader = (props) => {
   const translate = useTranslate()
-  const classes = useStyles()
-  const { record } = props
-  const { rating, servings, duration_free } = record
+  // const classes = useStyles()
+  const { rating, servings, duration_free } = props
   return (
-    <div className={classes.root}>
+    <Root className={classes.root}>
       <span className={classes['text-left']}>
         <Stars rating={rating} />
       </span>
@@ -41,7 +47,7 @@ const RecipeShowHeader = (props) => {
         </span>
       )}
       {duration_free && <span className={classes['text-right']}>{duration_free}</span>}
-    </div>
+    </Root>
   )
 }
 

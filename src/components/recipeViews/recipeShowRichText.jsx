@@ -1,15 +1,22 @@
 import React from 'react'
+import { styled } from '@mui/material/styles'
 import { RichTextField, useTranslate } from 'react-admin'
-import { makeStyles } from '@material-ui/core/styles'
 
-const useStyles = makeStyles({
-  label: {
+const PREFIX = 'RecipeShowRichText'
+
+const classes = {
+  label: `${PREFIX}-label`,
+  root: `${PREFIX}-root`,
+}
+
+const Root = styled('div')({
+  [`& .${classes.label}`]: {
     fontWeight: 'bold',
     fontSize: '1.25rem',
     display: 'block',
     marginBottom: '0.75rem',
   },
-  root: {
+  [`&.${classes.root}`]: {
     paddingBlock: '1rem',
   },
 })
@@ -20,13 +27,13 @@ const RecipeShowRichText = (props) => {
     source === 'ingredients'
       ? translate('resources.recipes.fields.ingredients')
       : translate('resources.recipes.fields.directions')
-  const classes = useStyles()
+
   const { source } = props
   return (
-    <div className={classes.root}>
+    <Root className={classes.root}>
       <span className={classes.label}>{getLabel(source)}</span>
-      <RichTextField source {...props} />
-    </div>
+      <RichTextField source />
+    </Root>
   )
 }
 

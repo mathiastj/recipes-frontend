@@ -21,18 +21,18 @@ import {
   Pagination,
   useTranslate,
 } from 'react-admin'
-import RichTextInput from 'ra-input-rich-text'
+import { RichTextInput } from 'ra-input-rich-text'
 import RecipeShowTitle from './recipeViews/recipeShowTitle'
 import RecipeShowHeader from './recipeViews/recipeShowHeader'
 import RecipeShowRichText from './recipeViews/recipeShowRichText'
-import StarRow from './starRow'
+import { StarRow } from './starRow'
 
 const PostTitle = ({ record }) => {
   return <span>{record ? `${record.title}` : ''}</span>
 }
 const validateRating = [number(), minValue(1), maxValue(5)]
 
-const RecipeFilter = (props) => {
+const RecipeFilter = () => {
   const translate = useTranslate()
   const searchLabel = translate('myroot.search')
   const extraIngredient = translate('myroot.extra_ingredient')
@@ -44,7 +44,7 @@ const RecipeFilter = (props) => {
   // It's not possible to add multiple search filters with the same source
   // It's not possible to add multiple search filters with the same source in a list, they would be overwritten by the last entry, in the 'or' query
   return (
-    <Filter {...props}>
+    <Filter>
       <TextInput label={searchLabel} source="title@_ilike,ingredients@_ilike,season@_ilike" alwaysOn />
       <TextInput label={extraIngredient} source="ingredients@_ilike" />
       <ReferenceInput source="category_id" reference="categories" allowEmpty>
@@ -54,10 +54,10 @@ const RecipeFilter = (props) => {
   )
 }
 
-const PostPagination = (props) => <Pagination rowsPerPageOptions={[10, 25, 50, 100]} {...props} />
+const PostPagination = () => <Pagination rowsPerPageOptions={[10, 25, 50, 100]} />
 
-export const RecipeList = (props) => (
-  <List {...props} filters={<RecipeFilter />} bulkActionButtons={false} perPage={100} pagination={<PostPagination />}>
+export const RecipeList = () => (
+  <List filters={<RecipeFilter />} bulkActionButtons={false} perPage={100} pagination={<PostPagination />}>
     <Datagrid rowClick="show">
       <TextField source="title" />
       <StarRow source="rating" />
@@ -69,13 +69,13 @@ export const RecipeList = (props) => (
   </List>
 )
 
-export const RecipeShow = (props) => (
-  <Show {...props} title={<PostTitle />}>
+export const RecipeShow = () => (
+  <Show title={<PostTitle />}>
     <SimpleShowLayout>
       <RecipeShowTitle source="title" />
       <RecipeShowHeader />
-      <RecipeShowRichText source="ingredients" {...props} />
-      <RecipeShowRichText source="directions" {...props} />
+      <RecipeShowRichText source="ingredients" />
+      <RecipeShowRichText source="directions" />
       <TextField source="season" />
       <TextField source="source" />
     </SimpleShowLayout>
@@ -113,14 +113,6 @@ const RecipeForm = () => (
   </SimpleForm>
 )
 
-export const RecipeEdit = (props) => (
-  <Edit {...props} title={<PostTitle />}>
-    {RecipeForm()}
-  </Edit>
-)
+export const RecipeEdit = () => <Edit title={<PostTitle />}>{RecipeForm()}</Edit>
 
-export const RecipeCreate = (props) => (
-  <Create {...props} title={<PostTitle />}>
-    {RecipeForm()}
-  </Create>
-)
+export const RecipeCreate = () => <Create title={<PostTitle />}>{RecipeForm()}</Create>
