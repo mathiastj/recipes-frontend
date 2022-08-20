@@ -1,5 +1,6 @@
-- Dump old Postgres from Heroku
-- Import to supabase
+- Dump old Postgres from Heroku /
+- Import to supabase /
+- Check whether I need to upgrade to React Admin v4: https://marmelab.com/react-admin/doc/4.0/Upgrade.html /
 - Set up row level security on supabase?
+- Invite users and set up domain
 - Convert to using supabase GraphQL https://github.com/marmelab/ra-supabase (might need v4)
-- Check whether I need to upgrade to React Admin v4: https://marmelab.com/react-admin/doc/4.0/Upgrade.html

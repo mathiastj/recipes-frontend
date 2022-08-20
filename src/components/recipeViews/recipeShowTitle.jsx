@@ -16,7 +16,7 @@ const Root = styled('div')({
     fontSize: '2rem',
   },
   [`&.${classes.root}`]: {
-    'text-align': 'center',
+    textAlign: 'center',
   },
 })
 

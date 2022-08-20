@@ -13,7 +13,7 @@
     "apollo-boost": "^0.4.9",
     "ra-data-hasura": "^0.5.3",
     "ra-input-rich-text": "^4.2.7",
-    "ra-language-danish": "^1.0.2",
+    "ra-language-danish": "mathiastj/ra-language-danish",
     "react": "^18.2.0",
     "react-admin": "^4.2.7",
     "react-scripts": "^5.0.1"
