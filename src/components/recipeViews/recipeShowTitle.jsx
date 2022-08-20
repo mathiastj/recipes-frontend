@@ -1,5 +1,5 @@
-import { useParams } from 'react-router-dom'
-import React from 'react'
+import { useRecordContext } from 'ra-core'
+import React, { memo } from 'react'
 import { styled } from '@mui/material/styles'
 
 const PREFIX = 'RecipeShowTitle'
@@ -20,15 +20,14 @@ const Root = styled('div')({
   },
 })
 
-const RecipeShowTitle = (props) => {
-  const { title } = useParams()
-  console.log(props)
-  // const { title } = props
+export const RecipeShowTitle = memo((props) => {
+  const record = useRecordContext(props)
+  const { title } = record
   return (
     <Root className={classes.root}>
       <span className={classes.text}>{title}</span>
     </Root>
   )
-}
+})
 
-export default RecipeShowTitle
+RecipeShowTitle.displayName = 'RecipeShowTitle'

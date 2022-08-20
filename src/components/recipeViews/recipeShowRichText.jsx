@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { styled } from '@mui/material/styles'
 import { RichTextField, useTranslate } from 'react-admin'
 
@@ -21,7 +21,7 @@ const Root = styled('div')({
   },
 })
 
-const RecipeShowRichText = (props) => {
+export const RecipeShowRichText = memo((props) => {
   const translate = useTranslate()
   const getLabel = (source) =>
     source === 'ingredients'
@@ -32,9 +32,9 @@ const RecipeShowRichText = (props) => {
   return (
     <Root className={classes.root}>
       <span className={classes.label}>{getLabel(source)}</span>
-      <RichTextField source />
+      <RichTextField source={source} />
     </Root>
   )
-}
+})
 
-export default RecipeShowRichText
+RecipeShowRichText.displayName = 'RecipeShowRichText'

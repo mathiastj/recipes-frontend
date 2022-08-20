@@ -4,6 +4,8 @@ import danishMessages from 'ra-language-danish'
 danishMessages.ra.navigation.page_rows_per_page = 'Rækker per side'
 danishMessages.ra.navigation.skip_nav = 'Skip nav' // not sure what this is
 danishMessages.ra.auth.user_menu = 'Profil'
+danishMessages.ra.action.unselect = 'Fjern markering' // not sure what this is
+danishMessages.ra.action.confirm = 'Bekræft' // not sure what this is
 
 export const danishMsgs = danishMessages
 

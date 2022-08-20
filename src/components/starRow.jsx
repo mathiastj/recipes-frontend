@@ -8,4 +8,4 @@ export const StarRow = memo((props) => {
   return <Stars rating={rating} />
 })
 
-StarRow.displayName = 'NumberField'
+StarRow.displayName = 'StarRow'

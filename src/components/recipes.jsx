@@ -1,10 +1,13 @@
 import React from 'react'
 import {
+  TopToolbar,
+  FilterButton,
+  CreateButton,
+  ExportButton,
   minValue,
   maxValue,
   number,
   ReferenceField,
-  Filter,
   SelectInput,
   ReferenceInput,
   Show,
@@ -22,9 +25,9 @@ import {
   useTranslate,
 } from 'react-admin'
 import { RichTextInput } from 'ra-input-rich-text'
-import RecipeShowTitle from './recipeViews/recipeShowTitle'
-import RecipeShowHeader from './recipeViews/recipeShowHeader'
-import RecipeShowRichText from './recipeViews/recipeShowRichText'
+import { RecipeShowTitle } from './recipeViews/recipeShowTitle'
+import { RecipeShowHeader } from './recipeViews/recipeShowHeader'
+import { RecipeShowRichText } from './recipeViews/recipeShowRichText'
 import { StarRow } from './starRow'
 
 const PostTitle = ({ record }) => {
@@ -43,21 +46,33 @@ const RecipeFilter = () => {
   // The main search field still needs to match one of title, ingredient and season
   // It's not possible to add multiple search filters with the same source
   // It's not possible to add multiple search filters with the same source in a list, they would be overwritten by the last entry, in the 'or' query
-  return (
-    <Filter>
-      <TextInput label={searchLabel} source="title@_ilike,ingredients@_ilike,season@_ilike" alwaysOn />
-      <TextInput label={extraIngredient} source="ingredients@_ilike" />
-      <ReferenceInput source="category_id" reference="categories" allowEmpty>
-        <SelectInput optionText="name" />
-      </ReferenceInput>
-    </Filter>
-  )
+  return [
+    <TextInput label={searchLabel} source="title@_ilike,ingredients@_ilike,season@_ilike" alwaysOn />,
+    <TextInput label={extraIngredient} source="ingredients@_ilike" />,
+    <ReferenceInput source="category_id" reference="categories" allowEmpty>
+      <SelectInput optionText="name" />
+    </ReferenceInput>,
+  ]
 }
 
 const PostPagination = () => <Pagination rowsPerPageOptions={[10, 25, 50, 100]} />
 
+const ListActions = () => (
+  <TopToolbar>
+    <FilterButton />
+    <CreateButton />
+    <ExportButton />
+  </TopToolbar>
+)
+
 export const RecipeList = () => (
-  <List filters={<RecipeFilter />} bulkActionButtons={false} perPage={100} pagination={<PostPagination />}>
+  <List
+    actions={<ListActions />}
+    filters={RecipeFilter()}
+    bulkActionButtons={false}
+    perPage={100}
+    pagination={<PostPagination />}
+  >
     <Datagrid rowClick="show">
       <TextField source="title" />
       <StarRow source="rating" />
@@ -82,21 +97,6 @@ export const RecipeShow = () => (
   </Show>
 )
 
-const toolbarOptions = [
-  ['bold', 'italic', 'underline', 'strike'], // toggled buttons
-
-  [{ list: 'ordered' }, { list: 'bullet' }],
-  [{ indent: '-1' }, { indent: '+1' }], // outdent/indent
-  [{ direction: 'rtl' }], // text direction
-
-  [{ size: ['small', false, 'large', 'huge'] }], // custom dropdown
-
-  [{ color: [] }, { background: [] }], // dropdown with defaults from theme
-  [{ font: [] }],
-  [{ align: [] }],
-  ['clean'],
-]
-
 const RecipeForm = () => (
   <SimpleForm>
     <TextInput source="title" />
@@ -106,8 +106,8 @@ const RecipeForm = () => (
     <ReferenceInput source="category_id" reference="categories">
       <SelectInput optionText="name" />
     </ReferenceInput>
-    <RichTextInput source="ingredients" toolbar={toolbarOptions} />
-    <RichTextInput source="directions" toolbar={toolbarOptions} />
+    <RichTextInput source="ingredients" />
+    <RichTextInput source="directions" />
     <TextInput source="season" />
     <TextInput source="source" />
   </SimpleForm>
