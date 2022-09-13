@@ -35,18 +35,9 @@ const validateRating = [number(), minValue(1), maxValue(5)]
 const RecipeFilter = (props) => {
   const translate = useTranslate()
   const searchLabel = translate('myroot.search')
-  const extraIngredient = translate('myroot.extra_ingredient')
-  // The data provider:
-  // https://github.com/Steams/ra-data-hasura-graphql/blob/d65d6326b8d74d7acb85d60f5c60733470c78eba/src/buildVariables.js#L33
-  // Transforms filters with multiple items (comma separated) into 'or' queries, while single items are transformed into 'and' queries
-  // Using the extra ingredient search therefore forces that ingredient to be present since it is added as a single 'and' query and not just added to the main 'or' query
-  // The main search field still needs to match one of title, ingredient and season
-  // It's not possible to add multiple search filters with the same source
-  // It's not possible to add multiple search filters with the same source in a list, they would be overwritten by the last entry, in the 'or' query
   return (
     <Filter {...props}>
-      <TextInput label={searchLabel} source="title@_ilike,ingredients@_ilike,season@_ilike" alwaysOn />
-      <TextInput label={extraIngredient} source="ingredients@_ilike" />
+      <TextInput label={searchLabel} source="q" alwaysOn />
       <ReferenceInput source="category_id" reference="categories" allowEmpty>
         <SelectInput optionText="name" />
       </ReferenceInput>

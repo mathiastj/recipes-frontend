@@ -1,5 +1,23 @@
-- Dump old Postgres from Heroku
-- Import to supabase
-- Set up row level security on supabase?
-- Convert to using supabase GraphQL https://github.com/marmelab/ra-supabase (might need v4)
-- Check whether I need to upgrade to React Admin v4: https://marmelab.com/react-admin/doc/4.0/Upgrade.html
+- Dump old Postgres from Heroku /
+- Import to supabase /
+- Set up row level security on supabase /
+- Convert to using supabase rest https://github.com/marmelab/ra-supabase (might need v4) /
+- Check whether I need to upgrade to React Admin v4: https://marmelab.com/react-admin/doc/4.0/Upgrade.html /
+
+- ra-supabase does not work with react v4 /
+
+- signup /login does not work, it consumes invation but no password is set? Maybe it's set up to password less? /
+
+- maybe signup should be on in supabase? /
+
+Signup/invite user is completely broken with ra-supabase
+So I bypassed it by enabling sign ups, then calling sign up with curl using the service role key and disabled it again. /
+
+- Change RLS to only allow CUD from my account /
+- Search did not work properly, redo the data provider /
+- While fixing data provider add multi search with comma separation /
+- Create a new anon user (which would have read only)
+- Add the credentials on the login screen so others can do read only
+
+
+- Update the README
