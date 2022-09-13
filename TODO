@@ -18,3 +18,6 @@ So I bypassed it by enabling sign ups, then calling sign up with curl using the 
 - While fixing data provider add multi search with comma separation /
 - Create a new anon user (which would have read only)
 - Add the credentials on the login screen so others can do read only
+
+
+- Update the README
