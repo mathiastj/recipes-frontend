@@ -14,5 +14,7 @@ Signup/invite user is completely broken with ra-supabase
 So I bypassed it by enabling sign ups, then calling sign up with curl using the service role key and disabled it again. /
 
 - Change RLS to only allow CUD from my account /
+- Search did not work properly, redo the data provider /
+- While fixing data provider add multi search with comma separation /
 - Create a new anon user (which would have read only)
 - Add the credentials on the login screen so others can do read only

@@ -134,6 +134,7 @@ const getList = async (
     .match(filter)
     .range(rangeFrom, rangeTo)
 
+  // Inspired by: https://github.com/marmelab/ra-supabase/issues/19
   if (q) {
     let queryString = '' //create a query string to put into an or( ) selector
     const fullTextSearchFields = Array.isArray(resourceOptions) ? resourceOptions : resourceOptions.fullTextSearchFields
