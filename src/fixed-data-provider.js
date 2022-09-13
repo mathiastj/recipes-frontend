@@ -121,7 +121,7 @@ const getList = async (
   const {
     pagination,
     sort,
-    filter: { q, ingredients, ...filter },
+    filter: { q, ...filter },
   } = params
 
   const rangeFrom = (pagination.page - 1) * pagination.perPage
@@ -134,35 +134,31 @@ const getList = async (
     .match(filter)
     .range(rangeFrom, rangeTo)
 
-  console.log(q)
-  console.log(ingredients)
   if (q) {
     let queryString = '' //create a query string to put into an or( ) selector
     const fullTextSearchFields = Array.isArray(resourceOptions) ? resourceOptions : resourceOptions.fullTextSearchFields
 
-    fullTextSearchFields.forEach((field, index, array) => {
-      /* query = query.ilike(field, `%${q}%`); */ // existing method - add on successive ilike selectors
+    // Hackish multi search
+    // If there's commas in the search string, split on the commas, and require both
+    let filters
+    if (q.includes(',')) {
+      filters = q.split(',')
+    } else {
+      filters = [q]
+    }
+    for (const filter of filters) {
+      fullTextSearchFields.forEach((field, index, array) => {
+        /* query = query.ilike(field, `%${q}%`); */ // existing method - add on successive ilike selectors
 
-      // Hackish multi search
-      // If there's commas in the search string, split on the commas, and search for all of them
-      let filters = q
-      if (filters.includes(',')) {
-        filters = q.split(',')
-      } else {
-        filters = [q]
-      }
-
-      for (const filter of filters) {
         queryString += `${field}.ilike.%${filter}%` // new method - concatenate the ilike queries into one string
 
         if (index < array.length - 1) {
           queryString += ',' //add commas between the selectors, but not at the end
         }
-      }
-    })
-    query.or(queryString) //add an or( ) selector using the built query string
-  }
-  if (ingredients) {
+      })
+      query.or(queryString) //add an or( ) selector using the built query string
+      queryString = ''
+    }
   }
 
   const { data, error, count } = await query
