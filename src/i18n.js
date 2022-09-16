@@ -35,6 +35,5 @@ export const domainMessages = {
   myroot: {
     servings: 'personer',
     search: 'Søg',
-    extra_ingredient: 'Ekstra ingrediens',
   },
 }
